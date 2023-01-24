@@ -34,5 +34,5 @@ function checkAnswer(id){
 function questionSelector(){
     var currentQuestion = questions[questionIndex];
 
-    var 
+
 }
