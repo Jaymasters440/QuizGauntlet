@@ -1,12 +1,27 @@
-var timeEl = document.querySelector(".time");
-var questionIndex = 0;
-
-var secondsLeft = 90;
-// Add event listener to start button element
+var timeEl = document.querySelector("#time");
+var buttonBoxEl = document.querySelector(".button-box");
+var questionEl = document.querySelector("#question");
 var startButton = document.querySelector(".button-start");
-startButton.addEventListener("click",startTimer);
-// Add event listener to button-correct button  to move on to next ? with if else statement to recognize that 
-//not a correct answer is an incorrect answer 
+
+var questionIndex = 0;
+var secondsLeft = 90;
+
+
+var questions=[
+  "What is HTML?",
+  "What is JavaScript?",
+  "What is CSS?",
+];
+var answers=[
+  "Answer 1", "Answer 2", "Answer 3",
+  "Answer A", "Answer B", "Answer C",
+  "answer 1", "answer 2", "answer 3",
+];
+
+var correctAnswers=[
+  0,1,2
+];
+
 
 
 // Add event listener to button-wrong to subtract 10 seconds 
@@ -24,15 +39,37 @@ function startTimer(){
     
       }, 1000);
 }
+ 
+function startGame(){
+  startTimer();
+
+questionSelector();
+
+}
 
 function checkAnswer(id){
     var currentQuestion = questions[questionIndex];
+    console.log(questionIndex);
+    var isCorrect = id === correctAnswers[questionIndex];
 
-    var isCorrect = id === currentQuestion.answer;
+    if (isCorrect){
+      questionIndex++; 
+      questionSelector();
+    }
 }
 
 function questionSelector(){
-    var currentQuestion = questions[questionIndex];
-
+  
+    questionEl.textContent = questions[questionIndex];
+    buttonBoxEl.innerHTML = `
+    <button id="answer1">${answers[questionIndex*3]}</button>
+    <button id="answer2">${answers[questionIndex*3+1]}</button>
+    <button id="answer3">${answers[questionIndex*3+2]}</button>
+    `
+document.querySelector("#answer1").addEventListener("click",checkAnswer(0));
+document.querySelector("#answer2").addEventListener("click",checkAnswer(1));
+document.querySelector("#answer3").addEventListener("click",checkAnswer(2));
 
 }
+
+startButton.addEventListener("click",startGame);
