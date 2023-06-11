@@ -2,6 +2,7 @@ var timeEl = document.querySelector("#time");
 var buttonBoxEl = document.querySelector(".button-box");
 var questionEl = document.querySelector("#question");
 var startButton = document.querySelector(".button-start");
+var resultsEl = document.querySelector("#results");
 
 var questionIndex = 0;
 var secondsLeft = 90;
@@ -47,28 +48,62 @@ questionSelector();
 
 }
 
-function checkAnswer(id){
+function checkAnswer(e){
+  var givenAnswer=e.target.getAttribute("name")
     var currentQuestion = questions[questionIndex];
-    console.log(questionIndex);
-    var isCorrect = id === correctAnswers[questionIndex];
-
+    
+    var isCorrect = givenAnswer == correctAnswers[questionIndex];
+    console.log(givenAnswer+isCorrect);
     if (isCorrect){
-      questionIndex++; 
-      questionSelector();
+      
     }
+    questionIndex++; 
+      
+      if (questionIndex < questions.length){
+        questionSelector();
+      }
+      else {
+        endGame();
+      }
+
 }
 
 function questionSelector(){
   
+  
     questionEl.textContent = questions[questionIndex];
     buttonBoxEl.innerHTML = `
-    <button id="answer1">${answers[questionIndex*3]}</button>
-    <button id="answer2">${answers[questionIndex*3+1]}</button>
-    <button id="answer3">${answers[questionIndex*3+2]}</button>
+    <button id="answer1" name=0>${answers[questionIndex*3]}</button>
+    <button id="answer2" name=1>${answers[questionIndex*3+1]}</button>
+    <button id="answer3" name=2>${answers[questionIndex*3+2]}</button>
     `
-document.querySelector("#answer1").addEventListener("click",checkAnswer(0));
-document.querySelector("#answer2").addEventListener("click",checkAnswer(1));
-document.querySelector("#answer3").addEventListener("click",checkAnswer(2));
+document.querySelector("#answer1").addEventListener("click",checkAnswer);
+document.querySelector("#answer2").addEventListener("click",checkAnswer);
+document.querySelector("#answer3").addEventListener("click",checkAnswer);
+
+}
+
+function endGame(){
+  var endScore = secondsLeft;
+  timeEl.style.visibility="hidden";
+  questionEl.textContent = "GAME OVER!";
+  buttonBoxEl.innerHTML = ""; 
+  resultsEl.innerHTML = `
+  <h4>Your score was ${endScore}</h4>
+  <p>Enter your initials to save your score! </p>
+  <input id="initials"></input>
+  <button id="submit">submit</button>
+
+  `
+  document.querySelector("#submit").addEventListener("click",()=>{
+    localStorage.setItem("scores",endScore)
+    window.location.href="highscore.html"
+  });
+
+
+}
+
+function addHighScore(){
 
 }
 
