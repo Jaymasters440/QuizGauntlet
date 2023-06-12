@@ -6,7 +6,7 @@ function displayScores(){
 
     for(var i = 0; i<scores.length; i++){
         scoresEl.innerHTML+=`
-        <div class="flex-row"><h4>${initials[i]}:${scores[i]}</h4></div>
+        <div><h4>${initials[i]}:${scores[i]}</h4></div>
         `
     }
 }; 
