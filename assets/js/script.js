@@ -50,11 +50,12 @@ questionSelector();
 
 function checkAnswer(e){
   var givenAnswer=e.target.getAttribute("name")
-    var currentQuestion = questions[questionIndex];
+    
     
     var isCorrect = givenAnswer == correctAnswers[questionIndex];
     console.log(givenAnswer+isCorrect);
-    if (isCorrect){
+    if (!isCorrect){ 
+      secondsLeft= secondsLeft-10;
       
     }
     questionIndex++; 
@@ -96,8 +97,34 @@ function endGame(){
 
   `
   document.querySelector("#submit").addEventListener("click",()=>{
-    localStorage.setItem("scores",endScore)
-    window.location.href="highscore.html"
+    var scoreList=localStorage.getItem("scores");
+    var initialList=localStorage.getItem("initials");
+    var initial=document.querySelector("#initials").value;
+    if(scoreList){
+      var parsedScores=JSON.parse(scoreList);
+      console.log(scoreList);
+    parsedScores.push(endScore);
+    localStorage.setItem("scores",JSON.stringify(parsedScores));
+
+
+    }
+    else {
+      var score=[];
+      score.push(endScore);
+      localStorage.setItem("scores",JSON.stringify(score));
+    }
+    if(initialList){
+      var parsedInitials=JSON.parse(initialList);
+    parsedInitials.push(initial);
+    localStorage.setItem("initials",JSON.stringify(parsedInitials));
+
+
+    }
+    else {
+      localStorage.setItem("initials",JSON.stringify
+      ([initial]));
+    }
+    window.location.href="highscore.html";
   });
 
 

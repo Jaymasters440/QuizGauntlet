@@ -44,3 +44,26 @@ input{
     text-align: center;
     top: 50%;
 }
+.container {
+    width: 85%;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .container.container-fluid {
+    width: 92%;
+  }
+  
+  /* FLEX CONTENT */
+  .flex-row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  
+  .flex-column {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
