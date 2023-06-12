@@ -5,6 +5,6 @@ Questions will appear with a sellection of answers attached to buttons  and the 
 An incorrect response will deduct 5 seconds from the timer
 As each response is logged, the screen will load a new question with its appropriate answers until the last question is answered. 
 At the end of the test the screen will display the score. 
-
-Can be run in the browser 
+# Usage
+Can be run in the browser or on deployed page. 
 
